@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import tensorflow as tf
 from tensorflow.keras.applications.resnet50 import ResNet50, preprocess_input
@@ -38,7 +38,7 @@ model_path = '../Reserch/model_checkpoints/model_19.h5'
 caption_model = load_model(model_path)
 
 VOCAB_SIZE = len(word_to_idx) + 1
-max_len = 35  # From the notebook, max_len was around 35
+max_len = 38  # Updated to match the model's expected shape of 38
 
 def preprocess_image(img_path):
     """Preprocess image for ResNet50"""
@@ -78,6 +78,9 @@ def predict_caption(photo):
 @app.post("/caption")
 async def generate_caption(file: UploadFile = File(...)):
     """Endpoint to generate caption for uploaded image"""
+    if not file.content_type.startswith("image/"):
+        raise HTTPException(status_code=400, detail="File must be an image.")
+
     try:
         # Save uploaded file temporarily
         temp_path = f"temp_{file.filename}"
@@ -98,11 +101,17 @@ async def generate_caption(file: UploadFile = File(...)):
         return {"caption": caption}
     
     except Exception as e:
-        return {"error": str(e)}
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/")
 async def root():
     return {"message": "Image Captioning API"}
+
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy", "description": "Image Captioning API is running smoothly."}
 
 if __name__ == "__main__":
     import uvicorn
