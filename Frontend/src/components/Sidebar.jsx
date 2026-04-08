@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Camera, BarChart2, Sparkles, MessageSquare, Info } from 'lucide-react';
+import { Camera, BarChart2, Sparkles, Home } from 'lucide-react';
 import './Sidebar.css';
 
 const Sidebar = () => {
@@ -8,19 +8,23 @@ const Sidebar = () => {
     <aside className="sidebar">
       <div className="sidebar-header">
         <div className="logo-icon">
-          <Sparkles size={24} color="#a78bfa" />
+          <Sparkles size={24} color="hsl(var(--primary))" />
         </div>
         <span className="logo-text">NeuralVision</span>
       </div>
 
       <nav className="sidebar-nav">
-        <NavLink to="/" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
+        <NavLink to="/" end className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
+          <Home size={20} />
+          <span>Home</span>
+        </NavLink>
+        <NavLink to="/caption" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
           <Camera size={20} />
           <span>Captioner</span>
         </NavLink>
         <NavLink to="/stats" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
           <BarChart2 size={20} />
-          <span>Vison Stats</span>
+          <span>Vision Stats</span>
         </NavLink>
       </nav>
 

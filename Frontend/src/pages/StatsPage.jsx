@@ -2,14 +2,15 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 import { Info, Brain, Layers, Cpu, Zap } from 'lucide-react';
+import ArchitectureDiagram from '../components/ArchitectureDiagram';
 
 const StatsPage = () => {
   // Mock data representing the model's architecture metadata
   const layerData = [
-    { name: 'CNN (VGG16)', value: 16, color: '#3b82f6' },
-    { name: 'LSTM Decoder', value: 4, color: '#8b5cf6' },
-    { name: 'Dense Layers', value: 2, color: '#a78bfa' },
-    { name: 'Embedding', value: 1, color: '#06b6d4' },
+    { name: 'CNN (ResNet50)', value: 50, color: 'hsl(205 85% 55%)' },
+    { name: 'LSTM + Dense', value: 3, color: 'hsl(25 90% 58%)' },
+    { name: 'Dropout + Add', value: 3, color: 'hsl(270 60% 55%)' },
+    { name: 'Embedding', value: 1, color: 'hsl(190 90% 45%)' },
   ];
 
   const vocabData = [
@@ -32,9 +33,9 @@ const StatsPage = () => {
           <Brain size={24} className="card-icon" />
           <h3>Neural Pipeline</h3>
           <div className="pipeline-viz">
-            <div className="step">Encoder <small>VGG16</small></div>
+            <div className="step">Encoder <small>ResNet50</small></div>
             <div className="arrow">→</div>
-            <div className="step">Features <small>4096-dim</small></div>
+            <div className="step">Features <small>2048-dim</small></div>
             <div className="arrow">→</div>
             <div className="step">Decoder <small>LSTM</small></div>
           </div>
@@ -91,13 +92,13 @@ const StatsPage = () => {
         <div className="full-width stats-card info-section">
           <div className="section-header">
             <Info size={24} />
-            <h3>How it Works</h3>
+            <h3>Step-by-Step Pipeline</h3>
           </div>
           <div className="process-steps">
             <div className="process-step">
               <span className="step-num">01</span>
-              <h5>Feature Projection</h5>
-              <p>The image is squeezed through VGG16 until only a 4,096-dimensional "meaning vector" remains.</p>
+              <h5>Feature Extraction</h5>
+              <p>The image is processed through ResNet50 to capture complex visual patterns in a 2,048-dim vector.</p>
             </div>
             <div className="process-step">
               <span className="step-num">02</span>
@@ -107,11 +108,14 @@ const StatsPage = () => {
             <div className="process-step">
               <span className="step-num">03</span>
               <h5>Language Synthesis</h5>
-              <p>Wait-states and embeddings ensure the output is grammatically correct and semantically accurate.</p>
+              <p>Word embeddings and recurrent state ensure the output is grammatically correct and semantically accurate.</p>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Advanced Neural Architecture View */}
+      <ArchitectureDiagram />
     </div>
   );
 };
