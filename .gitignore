@@ -95,3 +95,11 @@ yarn-error.log*
 temp_*.jpg
 temp_*.jpeg
 temp_*.png
+
+# Allow specific model and feature files for deployment
+!Backend/*.h5
+!Backend/*.pkl
+
+# Ignore large cached feature sets since they're only needed for training
+Backend/encoded_train_features.pkl
+Backend/encoded_test_features.pkl
