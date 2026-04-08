@@ -64,7 +64,7 @@ function App() {
     formData.append('file', selectedFile);
 
     try {
-      const response = await fetch('http://localhost:8000/caption', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:8000'}/caption`, {
         method: 'POST',
         body: formData,
       });
