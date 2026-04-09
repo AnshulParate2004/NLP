@@ -41,8 +41,6 @@ const ArchitectureDiagram = () => {
               <Arrow />
               <FlowBox label="ResNet50 Backbone" sublabel="Pre-trained CNN" variant="encoder" />
               <Arrow />
-              <FlowBox label="Global Avg Pooling" sublabel="2048-dim Vector" variant="encoder" />
-              <Arrow />
               <FlowBox label="Dropout (0.3)" sublabel="Regularisation" variant="encoder" />
               <Arrow />
               <FlowBox label="Dense Layer" sublabel="256 Features" variant="encoder" />
