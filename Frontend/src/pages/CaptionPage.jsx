@@ -51,7 +51,7 @@ const CaptionPage = () => {
     formData.append('file', selectedFile);
 
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const apiUrl = 'https://nlp-e1cu.onrender.com';
       const response = await fetch(`${apiUrl}/caption`, {
         method: 'POST',
         body: formData,
